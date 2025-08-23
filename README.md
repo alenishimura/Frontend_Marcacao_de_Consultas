@@ -1,3 +1,6 @@
+Alexandre Wagner Nishimura RM98190 - 3ECS
+Advanced programming & Mobile Dev
+
 # Sistema de Agendamento de Consultas Médicas
 
 [![React Native](https://img.shields.io/badge/React%20Native-0.72.0-blue.svg)](https://reactnative.dev/)
@@ -129,18 +132,3 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## Autores
 
 - **Professor Hete Caetano** - [hete.caetano@fiap.com.br](mailto:hete.caetano@fiap.com.br)
-
-## Agradecimentos
-
-- [React Native Community](https://reactnative.dev/help)
-- [React Navigation](https://reactnavigation.org/)
-- [Styled Components](https://styled-components.com/)
-- Todos os contribuidores do projeto
-
-## Suporte
-
-Se você encontrar algum problema ou tiver sugestões, por favor abra uma issue no GitHub.
-
----
-
-Desenvolvido por Professor Hete Caetano e compartilhado com alunos de TDS 
