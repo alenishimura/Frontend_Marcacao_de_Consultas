@@ -10,6 +10,7 @@ import { RootStackParamList } from '../types/navigation';
 import theme from '../styles/theme';
 import Header from '../components/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserManagement from '../components/UserManagement';
 
 type AdminDashboardScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'AdminDashboard'>;
@@ -47,6 +48,7 @@ const getStatusColor = (status: string) => {
       return theme.colors.warning;
   }
 };
+const [activeTab, setActiveTab] = useState<'appointments' | 'users'>('appointments');
 
 const getStatusText = (status: string) => {
   switch (status) {
@@ -95,6 +97,20 @@ const AdminDashboardScreen: React.FC = () => {
     }, [])
   );
 
+    <TabContainer>
+        <TabButton 
+          active={activeTab === 'appointments'} 
+          onPress={() => setActiveTab('appointments')}
+        >
+          <TabText active={activeTab === 'appointments'}>Consultas</TabText>
+        </TabButton>
+        <TabButton 
+          active={activeTab === 'users'} 
+          onPress={() => setActiveTab('users')}
+        >
+          <TabText active={activeTab === 'users'}>Usuários</TabText>
+        </TabButton>
+      </TabContainer>
   const handleUpdateStatus = async (appointmentId: string, newStatus: 'confirmed' | 'cancelled') => {
     try {
       const storedAppointments = await AsyncStorage.getItem('@MedicalApp:appointments');
@@ -113,12 +129,30 @@ const AdminDashboardScreen: React.FC = () => {
       console.error('Erro ao atualizar status:', error);
     }
   };
+     {activeTab === 'appointments' ? (
+        <>
+          <SectionTitle>Últimas Consultas</SectionTitle>
+          {/* ... código existente das consultas ... */}
+        </>
+      ) : (
+        <UserManagement />
+      )}
+
+      <Button
+        title="Sair"
+        onPress={signOut}
+        containerStyle={styles.button as ViewStyle}
+        buttonStyle={styles.logoutButton}
+      />
+    </ScrollView>
+  </Container>
+);
 
   return (
-    <Container>
-      <Header />
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Title>Painel Administrativo</Title>
+  <Container>
+    <Header />
+    <ScrollView contentContainerStyle={styles.scrollContent}>
+      <Title>Painel Administrativo</Title>
 
         <Button
           title="Gerenciar Usuários"
@@ -189,6 +223,27 @@ const AdminDashboardScreen: React.FC = () => {
   );
 };
 
+const TabContainer = styled.View`
+  flex-direction: row;
+  background-color: ${theme.colors.surface};
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid ${theme.colors.border};
+`;
+
+const TabButton = styled.TouchableOpacity<{ active: boolean }>`
+  flex: 1;
+  padding: 12px;
+  align-items: center;
+  background-color: ${props => props.active ? theme.colors.primary : 'transparent'};
+  border-radius: 8px;
+`;
+
+const TabText = styled.Text<{ active: boolean }>`
+  color: ${props => props.active ? '#fff' : theme.colors.text};
+  font-weight: ${props => props.active ? 'bold' : 'normal'};
+  font-size: 16px;
+`;
 const styles = {
   scrollContent: {
     padding: 20,

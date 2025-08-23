@@ -10,31 +10,13 @@ const STORAGE_KEYS = {
 
 // Médicos mockados que podem fazer login
 const mockDoctors = [
-  {
-    id: '1',
-    name: 'Dr. João Silva',
-    email: 'joao@example.com',
-    role: 'doctor' as const,
-    specialty: 'Cardiologia',
-    image: 'https://randomuser.me/api/portraits/men/1.jpg',
-  },
-  {
-    id: '2',
-    name: 'Dra. Maria Santos',
-    email: 'maria@example.com',
-    role: 'doctor' as const,
-    specialty: 'Pediatria',
-    image: 'https://randomuser.me/api/portraits/women/1.jpg',
-  },
-  {
-    id: '3',
-    name: 'Dr. Pedro Oliveira',
-    email: 'pedro@example.com',
-    role: 'doctor' as const,
-    specialty: 'Ortopedia',
-    image: 'https://randomuser.me/api/portraits/men/2.jpg',
-  },
+   // Dados removidos - agora vêm da API
 ];
+
+async getAllDoctors(): Promise<User[]> {
+  // DEPRECIADO: Use authApiService.getAllDoctors() instead
+  return [];
+},
 
 // Admin mockado
 const mockAdmin = {

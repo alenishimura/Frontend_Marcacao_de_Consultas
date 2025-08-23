@@ -8,7 +8,8 @@ import theme from '../styles/theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Appointment } from '../types/appointments';
-import { Doctor } from '../types/doctors';
+import { authApiService } from '../services/authApi';
+import { User } from '../types/auth';
 import { RootStackParamList } from '../types/navigation';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -16,25 +17,7 @@ type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
 };
 
-const doctors: Doctor[] = [
-  {
-    id: '1',
-    name: 'Dr. João Silva',
-    specialty: 'Cardiologista',
-    image: 'https://mighty.tools/mockmind-api/content/human/91.jpg',
-  },
-  {
-    id: '2',
-    name: 'Dra. Maria Santos',
-    specialty: 'Dermatologista',
-    image: 'https://mighty.tools/mockmind-api/content/human/97.jpg',
-  },
-  {
-    id: '3',
-    name: 'Dr. Pedro Oliveira',
-    specialty: 'Oftalmologista',
-    image: 'https://mighty.tools/mockmind-api/content/human/79.jpg',
-  },
+const doctors: Doctor[] = [const [doctors, setDoctors] = useState<User[]>([]);
 ];
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
@@ -64,10 +47,47 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     setRefreshing(false);
   };
 
-  const getDoctorInfo = (doctorId: string): Doctor | undefined => {
-    return doctors.find(doctor => doctor.id === doctorId);
-  };
+// FUNÇÃO para carregar médicos da API
+const loadDoctors = async () => {
+  try {
+    const doctorsData = await authApiService.getAllDoctors();
+    setDoctors(doctorsData);
+  } catch (error) {
+    console.error('Erro ao carregar médicos:', error);
+  }
+};
 
+// CARREGAMENTO automático
+useFocusEffect(
+  React.useCallback(() => {
+    loadAppointments();
+    loadDoctors(); // Carrega médicos da API
+  }, [])
+);
+
+// BUSCA em dados reais
+const getDoctorInfo = (doctorId: string): User | undefined => {
+  return doctors.find(doctor => doctor.id === doctorId);
+};
+
+// RENDERIZAÇÃO com dados reais
+const renderAppointment = ({ item }: { item: Appointment }) => {
+  const doctor = getDoctorInfo(item.doctorId);
+  
+  return (
+    <AppointmentCard>
+      <DoctorImage source={{ uri: doctor?.image || 'https://via.placeholder.com/100' }} />
+      <InfoContainer>
+        <DoctorName>{doctor?.name || 'Médico não encontrado'}</DoctorName>
+        <DoctorSpecialty>
+          {doctor?.role === 'doctor' && 'specialty' in doctor 
+            ? doctor.specialty 
+            : 'Especialidade não encontrada'}
+        </DoctorSpecialty>
+      </InfoContainer>
+    </AppointmentCard>
+  );
+};
   const renderAppointment = ({ item }: { item: Appointment }) => {
     const doctor = getDoctorInfo(item.doctorId);
     
