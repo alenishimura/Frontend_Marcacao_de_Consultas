@@ -8,17 +8,15 @@ const STORAGE_KEYS = {
   REGISTERED_USERS: '@MedicalApp:registeredUsers',
 };
 
-// Médicos mockados que podem fazer login
+// ⚠️ DADOS MOCKADOS - MANTIDOS APENAS PARA COMPATIBILIDADE COM COMPONENTES ANTIGOS
+// TODO: Remover quando todos os componentes estiverem usando authApiService
+
+// Médicos mockados (DEPRECATED - usar authApiService.getAllDoctors())
 const mockDoctors = [
-   // Dados removidos - agora vêm da API
+  // Dados removidos - agora vêm da API
 ];
 
-async getAllDoctors(): Promise<User[]> {
-  // DEPRECIADO: Use authApiService.getAllDoctors() instead
-  return [];
-},
-
-// Admin mockado
+// Admin mockado (DEPRECATED - usar authApiService)
 const mockAdmin = {
   id: 'admin',
   name: 'Administrador',
@@ -130,7 +128,8 @@ export const authService = {
   },
 
   async getAllDoctors(): Promise<User[]> {
-    return mockDoctors;
+    // DEPRECATED: Use authApiService.getAllDoctors() instead
+    return [];
   },
 
   async getPatients(): Promise<User[]> {
