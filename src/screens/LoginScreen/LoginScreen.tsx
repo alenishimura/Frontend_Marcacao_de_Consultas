@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Input, Button, Text } from 'react-native-elements';
-import { useAuth } from '../contexts/AuthContext';
-import theme from '../styles/theme';
+import { useAuth } from '../../contexts/AuthContext';
+import theme from '../../styles/theme';
 import { ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/navigation';
+import { RootStackParamList } from '../../types/navigation';
 
 type LoginScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -77,39 +77,6 @@ const LoginScreen: React.FC = () => {
       </Text>
     </Container>
   );
-};
-
-const styles = {
-  input: {
-    marginBottom: 15,
-  },
-  button: {
-    marginTop: 10,
-    width: '100%',
-  },
-  buttonStyle: {
-    backgroundColor: theme.colors.primary,
-    paddingVertical: 12,
-  },
-  registerButton: {
-    marginTop: 10,
-    width: '100%',
-  },
-  registerButtonStyle: {
-    backgroundColor: theme.colors.secondary,
-    paddingVertical: 12,
-  },
-  hint: {
-    marginTop: 20,
-    textAlign: 'center' as const,
-    color: theme.colors.text,
-  },
-  credentials: {
-    marginTop: 10,
-    textAlign: 'center' as const,
-    color: theme.colors.text,
-    fontSize: 12,
-  },
 };
 
 const Container = styled.View`
