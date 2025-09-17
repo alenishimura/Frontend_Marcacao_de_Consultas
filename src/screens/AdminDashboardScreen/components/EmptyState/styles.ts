@@ -43,3 +43,7 @@ export const EmptySubtext = styled.Text`
   font-size: ${theme.typography.caption.fontSize}px;
   margin-top: ${theme.spacing.small}px;
 `;
+
+const styles = { Container, EmptyIcon, EmptyText, EmptySubtext };
+
+export default styles;

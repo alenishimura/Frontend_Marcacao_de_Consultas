@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Button, Header } from "react-native-elements";
 import React from "react";
 import { ViewStyle } from "react-native";
-import { Container, ScrollView, Title, ProfileCard, Avatar, Name, Email, RoleText, SpecialtyText, styles } from "./styles";
+import { Container, ScrollView, Title, ProfileCard, Avatar, Name, Email, RoleText, SpecialtyText, styles } from './styles';
 import RoleBadge from "./components/RoleBadge";
 import { RootStackParamList } from "../../types/navigation";
 import { useAuth } from "../../contexts/AuthContext";
